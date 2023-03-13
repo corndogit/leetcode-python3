@@ -3,17 +3,15 @@ class Solution:
         if len(s) == 0:
             return 0
 
-        uniques = set()
-        longest = 1
-        for char in s:
-            if char in uniques:
-                longest = max(longest, len(uniques))
-                uniques = set()
-            uniques.add(char)
+        repeats = {}
+        start = 0
+        max_len = 0
+        for i in range(len(s)):
+            if s[i] in repeats and start <= repeats[s[i]]:
+                start = repeats[s[i]] + 1
+            else:
+                max_len = max(max_len, i - start + 1)
 
-        return longest
+            repeats[s[i]] = i
 
-
-if __name__ == '__main__':
-    sol = Solution()
-    print(sol.lengthOfLongestSubstring("pwwkew"))
+        return max_len
