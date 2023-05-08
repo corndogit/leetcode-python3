@@ -21,7 +21,9 @@ class Mancala:
         # validate move
         correct_row = (player == "P1" and row == 0) or (player == "P2" and row == 1)
         out_of_bounds = col < 0 or col >= len(self.board[1])
-        empty_hole = self.board[row][col] == 0
+        empty_hole = False
+        if not out_of_bounds:
+            empty_hole = self.board[row][col] == 0
         if out_of_bounds or empty_hole or not correct_row:
             print("Invalid selection, try again")
             return
